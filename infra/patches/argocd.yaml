@@ -24467,7 +24467,7 @@ cluster:
               generators:
               - list:
                   elements:
-                  - repoPath: omni/apps/*/*
+                  - repoPath: apps/*/*
                     repoURL: https://github.com/vanelin/omni.git
                     revision: HEAD
               - git:

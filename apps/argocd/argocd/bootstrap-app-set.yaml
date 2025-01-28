@@ -10,7 +10,7 @@ spec:
               elements:
                 - repoURL: https://github.com/vanelin/omni.git
                   revision: HEAD
-                  repoPath: omni/apps/*/*
+                  repoPath: apps/*/*
           - git:
               repoURL: '{{ repoURL }}'
               revision: '{{ revision }}'
