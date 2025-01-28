@@ -1,0 +1,18 @@
+kind: Cluster
+name: local-server1
+talos:
+  version: v1.9.0
+kubernetes:
+  version: v1.31.5
+features:
+  enableWorkloadProxy: true
+---
+kind: ControlPlane
+machineClass:
+  name: omni-controlplane
+  size: 1
+patches:
+  - name: controlplane
+    file: patches/controlplane.yaml
+  - name: argocd
+    file: patches/argocd.yaml
