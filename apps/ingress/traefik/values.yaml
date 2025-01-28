@@ -1,4 +1,5 @@
 traefik:
+  namespaceOverride: traefik-v2
   globalArguments:
     - "--global.checknewversion=false"
     - "--global.sendanonymoususage=false"

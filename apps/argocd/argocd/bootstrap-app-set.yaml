@@ -20,7 +20,7 @@ spec:
     preserveResourcesOnDeletion: true
   template:
     metadata:
-      name: '{{ path[3] }}-{{ path.basenameNormalized }}'
+      name: '{{ path[1] }}-{{ path.basenameNormalized }}'
       namespace: argocd
     spec:
       project: default
@@ -30,7 +30,7 @@ spec:
         path: '{{ path }}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{ path[3] }}'
+        namespace: '{{ path[1] }}'
       syncPolicy:
         automated:
           prune: false
@@ -46,25 +46,25 @@ spec:
             duration: 30s
             factor: 2
             maxDuration: 5m
-      ignoreDifferences:
-        # Cilium generated certs
-        # - name: cilium-ca
-        #   kind: Secret
-        #   namespace: kube-system
-        #   jsonPointers:
-        #     - /data/ca.crt
-        #     - /data/ca.key
-        # - name: hubble-server-certs
-        #   kind: Secret
-        #   namespace: kube-system
-        #   jsonPointers:
-        #     - /data/ca.crt
-        #     - /data/tls.crt
-        #     - /data/tls.key
-        # - name: hubble-relay-client-certs
-        #   kind: Secret
-        #   namespace: kube-system
-        #   jsonPointers:
-        #     - /data/ca.crt
-        #     - /data/tls.crt
-        #     - /data/tls.key
+      # ignoreDifferences:
+      #   # Cilium generated certs
+      #   - name: cilium-ca
+      #     kind: Secret
+      #     namespace: kube-system
+      #     jsonPointers:
+      #       - /data/ca.crt
+      #       - /data/ca.key
+      #   - name: hubble-server-certs
+      #     kind: Secret
+      #     namespace: kube-system
+      #     jsonPointers:
+      #       - /data/ca.crt
+      #       - /data/tls.crt
+      #       - /data/tls.key
+      #   - name: hubble-relay-client-certs
+      #     kind: Secret
+      #     namespace: kube-system
+      #     jsonPointers:
+      #       - /data/ca.crt
+      #       - /data/tls.crt
+      #       - /data/tls.key
