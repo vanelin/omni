@@ -1,11 +1,25 @@
 traefik:
-  namespaceOverride: traefik-v2
+  namespaceOverride: traefik
   globalArguments:
     - "--global.checknewversion=false"
     - "--global.sendanonymoususage=false"
     # - "--api.insecure=false"
   additionalArguments:
     - "--serversTransport.insecureSkipVerify=true"
+  deployment:
+    enabled: true
+    kind: Deployment
+    replicas: 1
+  providers:
+    kubernetesCRD:
+      enabled: true
+      allowCrossNamespace: true
+      allowExternalNameServices: true
+    kubernetesIngress:
+      enabled: true
+      allowExternalNameServices: true
+      publishedService:
+        enabled: true
   image:
     name: traefik
     pullPolicy: IfNotPresent
@@ -40,11 +54,25 @@ traefik:
           - type: Pods
             value: 1
             periodSeconds: 60
+  ports:
+    web:
+      port: 8000
+      expose: true
+      exposedPort: 80
+      protocol: TCP
+      nodePort: 30080
+    websecure:
+      port: 8443
+      expose: true
+      exposedPort: 443
+      protocol: TCP
+      nodePort: 30443
+      tls:
+        enabled: true
   service:
     enabled: true
-    type: LoadBalancer
-    spec:
-      externalTrafficPolicy: Local
+    type: NodePort
+    annotations: {}
   affinity: {}
   tolerations: []
   logs:
