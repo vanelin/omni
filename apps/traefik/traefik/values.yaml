@@ -55,6 +55,12 @@ traefik:
             value: 1
             periodSeconds: 60
   ports:
+    traefik:
+      port: 9000
+      expose:
+        default: true
+      exposedPort: 9000
+      protocol: TCP
     web:
       port: 8000
       expose:
