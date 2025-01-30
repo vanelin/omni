@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: sirius-app-set
+  namespace: argocd
+spec:
+  generators:
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - repoURL: https://github.com/vanelin/omni.git
+                  revision: HEAD
+                  repoPath: applicationSet/*/**/application.yaml
+          - git:
+              repoURL: '{{ repoURL }}'
+              revision: '{{ revision }}'
+              files:
+                - path: '{{ repoPath }}'
+  template:
+    metadata:
+      name: '{{ path.basename }}'
+      namespace: argocd
+    spec:
+      project: sirius
+      source:
+        chart: '{{ source.chart }}'
+        helm:
+          values: '{{ values }}'
+        repoURL: '{{ source.repoURL }}'
+        targetRevision: '{{ source.targetRevision }}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{ path[1] }}'
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+        syncOptions:
+          - PruneLast=false
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true

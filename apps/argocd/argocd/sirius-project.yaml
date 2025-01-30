@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: sirius
+  namespace: argocd
+spec:
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: sirius
+      server: https://kubernetes.default.svc
+  description: "Project for Sirius Applications"
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
