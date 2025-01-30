@@ -7,9 +7,6 @@ values: |-
   domain: "{ip:.*}.nip.io"
   fullnameOverride: subscription-srv
   imagePullSecrets: []
-  container:
-    http_port: 57875
-    https_port: 58875
   traefik:
     enabled: true
   autoscaling:
