@@ -1,0 +1,17 @@
+source:
+  repoURL: https://nayaxrepos.jfrog.io/artifactory/rtl-helm-local/
+  targetRevision: x.x.x
+  chart: subscription-srv
+
+values: |-
+  domain: "{ip:.*}.nip.io"
+  fullnameOverride: subscription-srv
+  imagePullSecrets: []
+  traefik:
+    enabled: true
+  autoscaling:
+    maxReplicas: 2
+  externalAutoscaling_enabled: false
+  serviceMonitor_enabled: false
+  env:
+    SERVICE-SETTINGS_LOCAL-MODE: true
