@@ -6,6 +6,9 @@ kubernetes:
   version: v1.31.5
 features:
   enableWorkloadProxy: true
+patches:
+  - name: metrics-server
+    file: patches/metrics-server.yaml
 ---
 kind: ControlPlane
 machineClass:
@@ -16,3 +19,7 @@ patches:
     file: patches/controlplane.yaml
   - name: argocd
     file: patches/argocd.yaml
+  - name: metrics-server
+    file: patches/metrics-server.yaml
+  - name: kubelet-cert-rotation
+    file: patches/kubelet-cert-rotation.yaml
