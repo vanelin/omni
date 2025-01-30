@@ -24457,6 +24457,22 @@ cluster:
                 name: argocd-cmd-params-cm
         ---
         apiVersion: argoproj.io/v1alpha1
+        kind: AppProject
+        metadata:
+          name: sirius
+          namespace: argocd
+        spec:
+          clusterResourceWhitelist:
+          - group: '*'
+            kind: '*'
+          description: Project for Sirius Applications
+          destinations:
+          - namespace: sirius
+            server: https://kubernetes.default.svc
+          sourceRepos:
+          - '*'
+        ---
+        apiVersion: argoproj.io/v1alpha1
         kind: ApplicationSet
         metadata:
           name: bootstrap
@@ -24505,6 +24521,49 @@ cluster:
                 - ApplyOutOfSyncOnly=true
                 - RespectIgnoreDifferences=true
                 - SkipDryRunOnMissingResource=true
+        ---
+        apiVersion: argoproj.io/v1alpha1
+        kind: ApplicationSet
+        metadata:
+          name: sirius-app-set
+          namespace: argocd
+        spec:
+          generators:
+          - matrix:
+              generators:
+              - list:
+                  elements:
+                  - repoPath: applicationSet/*/**/application.yaml
+                    repoURL: https://github.com/vanelin/omni.git
+                    revision: HEAD
+              - git:
+                  files:
+                  - path: '{{ repoPath }}'
+                  repoURL: '{{ repoURL }}'
+                  revision: '{{ revision }}'
+          template:
+            metadata:
+              name: '{{ path.basename }}'
+              namespace: argocd
+            spec:
+              destination:
+                namespace: '{{ path[1] }}'
+                server: https://kubernetes.default.svc
+              project: sirius
+              source:
+                chart: '{{ source.chart }}'
+                helm:
+                  values: '{{ values }}'
+                repoURL: '{{ source.repoURL }}'
+                targetRevision: '{{ source.targetRevision }}'
+              syncPolicy:
+                automated:
+                  prune: false
+                  selfHeal: true
+                syncOptions:
+                - PruneLast=false
+                - CreateNamespace=true
+                - ApplyOutOfSyncOnly=true
         ---
         apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
