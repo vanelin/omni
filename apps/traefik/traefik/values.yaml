@@ -74,7 +74,9 @@ traefik:
   service:
     enabled: true
     type: NodePort
-    annotations: {}
+    annotations:
+      omni-kube-service-exposer.sidero.dev/port: "50082"
+      omni-kube-service-exposer.sidero.dev/label: Traefik
   affinity: {}
   tolerations: []
   logs:
@@ -86,4 +88,4 @@ traefik:
   #       secretName: traefik-cert
   ingressRoute:
     dashboard:
-      enabled: false
+      enabled: true
