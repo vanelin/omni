@@ -1,0 +1,20 @@
+source:
+  repoURL: https://nayaxrepos.jfrog.io/artifactory/rtl-helm-local/
+  targetRevision: x.x.x
+  chart: local-server-srv
+
+values: |-
+  domain: "{ip:.*}.nip.io"
+  fullnameOverride: local-server-srv
+  imagePullSecrets: []
+  traefik:
+    enabled: true
+  autoscaling:
+    maxReplicas: 2
+  externalAutoscaling_enabled: false
+  serviceMonitor_enabled: false
+  mysql:
+    enabled: true
+    fullnameOverride: "local-server-srv-mysql"
+  env:
+    SERVICE-SETTINGS_LOCAL-MODE: true
