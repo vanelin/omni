@@ -1,4 +1,4 @@
-openebs:  
+openebs:
   mayastor:
     csi:
       node:
