@@ -9,6 +9,10 @@ features:
 patches:
   - name: metrics-server
     file: patches/metrics-server.yaml
+  - name: traefik-cp
+    file: patches/traefik.yaml
+  - name: mayastor-cp
+    file: patches/mayastor-cp.yaml
 ---
 kind: ControlPlane
 machineClass:
