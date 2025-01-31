@@ -10,7 +10,6 @@ It deploys a Talos Kubernetes cluster using Omni, with the following tooling:
 
 * ArgoCD for application management
 * OpenEBS Mayastor for persistent volume management
-* Prometheus & Grafana for monitoring
 * Traefik for ingress
 * Metrics Server for K8s metrics
 * Simple apps + MySQL for testing
@@ -74,6 +73,7 @@ Applications can be made of Helm charts, Kustomize definitions, or just Kubernet
 - [Node IPAM LB — Cilium 1.18.0-dev documentation](https://docs.cilium.io/en/latest/network/node-ipam/)
 - Cert-manager for managing TLS certificates
 - Basic authentication and authorization for apps
+- Prometheus & Grafana for monitoring
 - Investigate secure way to pass secrets by patching control plane machine configuration:
   - SOPS: Secrets OPerationS
   ```yaml
