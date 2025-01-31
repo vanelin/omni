@@ -11,7 +11,7 @@ It deploys a Talos Kubernetes cluster using Omni, with the following tooling:
 * ArgoCD for application management
 * OpenEBS Mayastor for persistent volume management
 * Traefik for ingress
-* Metrics Server for K8s metrics
+* Metrics Server for Horizontal Pod Autoscaling
 * Simple apps + MySQL for testing
 
 ## Usfull links:
